@@ -265,7 +265,7 @@ public class ValueDisplayPanel extends JPanel {
         valuePreviewToolbarPanel.add(keyTextField);
         valuePreviewToolbarPanel.add(renameButton);
         valuePreviewToolbarPanel.add(reloadButton);
-        valuePreviewToolbarPanel.add(deleteButton);
+//        valuePreviewToolbarPanel.add(deleteButton);
         valuePreviewToolbarPanel.add(new JLabel("TTL:"));
         valuePreviewToolbarPanel.add(ttlTextField);
 //        valuePreviewToolbarPanel.add(ttlButton);
