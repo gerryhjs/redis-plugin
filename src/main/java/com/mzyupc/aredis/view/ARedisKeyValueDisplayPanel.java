@@ -28,7 +28,7 @@ import java.awt.event.KeyListener;
  * key-value展示
  */
 public class ARedisKeyValueDisplayPanel extends JPanel implements Disposable {
-    public static final String DEFAULT_FILTER = "*";
+    public static final String DEFAULT_FILTER = "";
     public static final String DEFAULT_GROUP_SYMBOL = ":";
     private final DbInfo dbInfo;
     private final RedisPoolManager redisPoolManager;
@@ -140,7 +140,7 @@ public class ARedisKeyValueDisplayPanel extends JPanel implements Disposable {
         });
 
         JPanel searchBoxPanel = new JPanel();
-        searchBoxPanel.add(new Label("Filter:"));
+        searchBoxPanel.add(new Label(""));
         searchBoxPanel.add(searchTextField);
         return searchBoxPanel;
     }
@@ -178,7 +178,7 @@ public class ARedisKeyValueDisplayPanel extends JPanel implements Disposable {
             }
         });
 
-        groupByPanel.add(new Label("Group by:"));
+        groupByPanel.add(new Label(""));
         groupByPanel.add(groupText);
         return groupByPanel;
     }
@@ -232,7 +232,7 @@ public class ARedisKeyValueDisplayPanel extends JPanel implements Disposable {
     }
 
     public String getKeyFilter() {
-        return keyFilter;
+        return "*" + keyFilter + "*" ;
     }
 
     public ValueDisplayPanel getValueDisplayPanel() {

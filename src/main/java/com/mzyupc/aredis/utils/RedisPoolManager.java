@@ -290,9 +290,9 @@ public class RedisPoolManager extends CloseTranscoder implements Disposable {
         try {
             jedis = getJedis(db);
             return Integer.parseInt(jedis.configGet("databases").get(1));
-        } catch (NullPointerException e) {
+        } catch (Exception e) {
             log.warn("", e);
-            return 0;
+            return 16;
         } finally {
             close(jedis);
         }
