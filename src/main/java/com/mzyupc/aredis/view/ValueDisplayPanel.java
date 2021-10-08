@@ -764,11 +764,10 @@ public class ValueDisplayPanel extends JPanel {
 
                 String ttlValue = ttlTextField.getText();
 
-                if (StringUtils.isEmpty(newValue)) {
-                    ErrorDialog.show("Please enter a valid Value!");
-                    return;
-                }
-
+//                if (StringUtils.isEmpty(newValue)) {
+//                    ErrorDialog.show("Please enter a valid Value!");
+//                    return;
+//                }
 //                new ConfirmDialog(
 //                        project,
 //                        "Confirm",
