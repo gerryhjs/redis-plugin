@@ -769,13 +769,14 @@ public class ValueDisplayPanel extends JPanel {
                     return;
                 }
 
-                new ConfirmDialog(
-                        project,
-                        "Confirm",
-                        "Do you really want to save this?",
-                        actionEvent -> {
-                            saveNewValue(newField, newValue, ttlValue);
-                        }).show();
+//                new ConfirmDialog(
+//                        project,
+//                        "Confirm",
+//                        "Do you really want to save this?",
+//                        actionEvent -> {
+//                            saveNewValue(newField, newValue, ttlValue);
+//                        }).show();
+                saveNewValue(newField, newValue, ttlValue);
             }
         });
         return saveValueButton;
