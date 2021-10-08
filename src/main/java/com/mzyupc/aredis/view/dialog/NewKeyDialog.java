@@ -313,7 +313,7 @@ public class NewKeyDialog extends DialogWrapper {
         NewKeyDialog.CustomOKAction okAction = new NewKeyDialog.CustomOKAction();
         // 设置默认的焦点按钮
         okAction.putValue(DialogWrapper.DEFAULT_ACTION, true);
-        return new Action[]{exitAction, okAction};
+        return new Action[]{okAction, exitAction};
     }
 
 

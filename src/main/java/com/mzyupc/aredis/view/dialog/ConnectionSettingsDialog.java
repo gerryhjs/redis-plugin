@@ -182,12 +182,12 @@ public class ConnectionSettingsDialog extends DialogWrapper implements Disposabl
         constraints.gridy = 1;
         constraints.gridwidth = 1;
         constraints.gridheight = 1;
-        constraints.weightx = 0.55;
+        constraints.weightx = 0.85;
         constraints.weighty = 0.33;
         gridBagLayout.setConstraints(hostField, constraints);
 
-        constraints.gridx = 2;
-        constraints.gridy = 1;
+        constraints.gridx = 0;
+        constraints.gridy = 2;
         constraints.gridwidth = 1;
         constraints.gridheight = 1;
         constraints.weightx = 0.15;
@@ -195,11 +195,11 @@ public class ConnectionSettingsDialog extends DialogWrapper implements Disposabl
         JLabel portLabel = new JLabel("Port:", SwingConstants.CENTER);
         gridBagLayout.setConstraints(portLabel, constraints);
 
-        constraints.gridx = 3;
-        constraints.gridy = 1;
+        constraints.gridx = 1;
+        constraints.gridy = 2;
         constraints.gridwidth = 1;
         constraints.gridheight = 1;
-        constraints.weightx = 0.15;
+        constraints.weightx = 0.85;
         constraints.weighty = 0.33;
         gridBagLayout.setConstraints(portField, constraints);
 
@@ -209,7 +209,7 @@ public class ConnectionSettingsDialog extends DialogWrapper implements Disposabl
         connectionSettingsPanel.add(portField);
 
         constraints.gridx = 0;
-        constraints.gridy = 2;
+        constraints.gridy = 3;
         constraints.gridwidth = 1;
         constraints.gridheight = 1;
         constraints.weightx = 0.15;
@@ -218,24 +218,24 @@ public class ConnectionSettingsDialog extends DialogWrapper implements Disposabl
         gridBagLayout.setConstraints(passwordLabel, constraints);
 
         constraints.gridx = 1;
-        constraints.gridy = 2;
+        constraints.gridy = 3;
         constraints.gridwidth = 2;
         constraints.gridheight = 1;
         constraints.weightx = 0.7;
         constraints.weighty = 0.33;
         gridBagLayout.setConstraints(passwordField, constraints);
 
-        constraints.gridx = 3;
-        constraints.gridy = 2;
-        constraints.gridwidth = 1;
-        constraints.gridheight = 1;
-        constraints.weightx = 0.15;
-        constraints.weighty = 0.33;
-        gridBagLayout.setConstraints(checkBox, constraints);
+//        constraints.gridx = 3;
+//        constraints.gridy = 2;
+//        constraints.gridwidth = 1;
+//        constraints.gridheight = 1;
+//        constraints.weightx = 0.15;
+//        constraints.weighty = 0.33;
+//        gridBagLayout.setConstraints(checkBox, constraints);
 
         connectionSettingsPanel.add(passwordLabel);
         connectionSettingsPanel.add(passwordField);
-        connectionSettingsPanel.add(checkBox);
+//        connectionSettingsPanel.add(checkBox);
 
         JPanel row = new JPanel(new FlowLayout(FlowLayout.LEFT));
         row.add(testButton);
@@ -267,7 +267,7 @@ public class ConnectionSettingsDialog extends DialogWrapper implements Disposabl
 
         // 设置默认的焦点按钮
         okAction.putValue(DialogWrapper.DEFAULT_ACTION, true);
-        return new Action[]{exitAction, okAction};
+        return new Action[]{okAction, exitAction};
     }
 
     /**
