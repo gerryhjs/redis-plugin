@@ -762,7 +762,7 @@ public class ValueDisplayPanel extends JPanel {
 
                 String newValue = valueTextArea.getText();
 
-                String ttlValue = valueTextArea.getText();
+                String ttlValue = ttlTextField.getText();
 
                 if (StringUtils.isEmpty(newValue)) {
                     ErrorDialog.show("Please enter a valid Value!");
@@ -785,7 +785,11 @@ public class ValueDisplayPanel extends JPanel {
         switch (typeEnum) {
             case String:
                 try (Jedis jedis = redisPoolManager.getJedis(dbInfo.getIndex())) {
-                    jedis.set(key, newValue, "","EX", Long.parseLong(ttlValue));
+                    try {
+                        jedis.set(key, newValue, "", "XX", Long.parseLong(ttlValue));
+                    } catch (Exception e) {
+                        jedis.set(key, newValue);
+                    }
                 }
                 break;
 
