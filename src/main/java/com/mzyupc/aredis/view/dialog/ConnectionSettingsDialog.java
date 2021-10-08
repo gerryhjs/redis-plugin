@@ -192,7 +192,7 @@ public class ConnectionSettingsDialog extends DialogWrapper implements Disposabl
         constraints.gridheight = 1;
         constraints.weightx = 0.15;
         constraints.weighty = 0.33;
-        JLabel portLabel = new JLabel("Port:", SwingConstants.CENTER);
+        JLabel portLabel = new JLabel("Port:");
         gridBagLayout.setConstraints(portLabel, constraints);
 
         constraints.gridx = 1;
@@ -203,13 +203,17 @@ public class ConnectionSettingsDialog extends DialogWrapper implements Disposabl
         constraints.weighty = 0.33;
         gridBagLayout.setConstraints(portField, constraints);
 
-        connectionSettingsPanel.add(hostLabel);
-        connectionSettingsPanel.add(hostField);
-        connectionSettingsPanel.add(portLabel);
-        connectionSettingsPanel.add(portField);
-
         constraints.gridx = 0;
         constraints.gridy = 3;
+        constraints.gridwidth = 1;
+        constraints.gridheight = 1;
+        constraints.weightx = 0.15;
+        constraints.weighty = 0.33;
+        JLabel splitLabel = new JLabel("");
+        gridBagLayout.setConstraints(splitLabel, constraints);
+
+        constraints.gridx = 0;
+        constraints.gridy = 4;
         constraints.gridwidth = 1;
         constraints.gridheight = 1;
         constraints.weightx = 0.15;
@@ -218,10 +222,10 @@ public class ConnectionSettingsDialog extends DialogWrapper implements Disposabl
         gridBagLayout.setConstraints(passwordLabel, constraints);
 
         constraints.gridx = 1;
-        constraints.gridy = 3;
-        constraints.gridwidth = 2;
+        constraints.gridy = 4;
+        constraints.gridwidth = 1;
         constraints.gridheight = 1;
-        constraints.weightx = 0.7;
+        constraints.weightx = 0.85;
         constraints.weighty = 0.33;
         gridBagLayout.setConstraints(passwordField, constraints);
 
@@ -233,6 +237,11 @@ public class ConnectionSettingsDialog extends DialogWrapper implements Disposabl
 //        constraints.weighty = 0.33;
 //        gridBagLayout.setConstraints(checkBox, constraints);
 
+        connectionSettingsPanel.add(hostLabel);
+        connectionSettingsPanel.add(hostField);
+        connectionSettingsPanel.add(portLabel);
+        connectionSettingsPanel.add(portField);
+        connectionSettingsPanel.add(splitLabel);
         connectionSettingsPanel.add(passwordLabel);
         connectionSettingsPanel.add(passwordField);
 //        connectionSettingsPanel.add(checkBox);
