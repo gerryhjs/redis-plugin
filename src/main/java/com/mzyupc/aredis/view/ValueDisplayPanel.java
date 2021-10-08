@@ -76,7 +76,7 @@ public class ValueDisplayPanel extends JPanel {
     private LoadingDecorator loadingDecorator;
 
     private EditorTextField valueTextArea;
-
+    private JBTextField ttlTextField;
     /**
      * value内部预览区 选中的value
      */
@@ -250,7 +250,7 @@ public class ValueDisplayPanel extends JPanel {
 
         JButton deleteButton = createDeleteButton();
 
-        JBTextField ttlTextField = new JBTextField();
+        ttlTextField = new JBTextField();
         ttlTextField.setDocument(new DoubleDocument());
         ttlTextField.setPreferredSize(new Dimension(70, 27));
         ttlTextField.setText(ttl.toString());
@@ -761,6 +761,9 @@ public class ValueDisplayPanel extends JPanel {
                 }
 
                 String newValue = valueTextArea.getText();
+
+                String ttlValue = valueTextArea.getText();
+
                 if (StringUtils.isEmpty(newValue)) {
                     ErrorDialog.show("Please enter a valid Value!");
                     return;
@@ -771,18 +774,18 @@ public class ValueDisplayPanel extends JPanel {
                         "Confirm",
                         "Do you really want to save this?",
                         actionEvent -> {
-                            saveNewValue(newField, newValue);
+                            saveNewValue(newField, newValue, ttlValue);
                         }).show();
             }
         });
         return saveValueButton;
     }
 
-    private void saveNewValue(String newFieldOrScore, String newValue) {
+    private void saveNewValue(String newFieldOrScore, String newValue, String ttlValue) {
         switch (typeEnum) {
             case String:
                 try (Jedis jedis = redisPoolManager.getJedis(dbInfo.getIndex())) {
-                    jedis.set(key, newValue);
+                    jedis.set(key, newValue, "","EX", Long.parseLong(ttlValue));
                 }
                 break;
 
