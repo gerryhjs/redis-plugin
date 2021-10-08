@@ -183,7 +183,7 @@ public class ConnectionSettingsDialog extends DialogWrapper implements Disposabl
         constraints.gridwidth = 1;
         constraints.gridheight = 1;
         constraints.weightx = 0.85;
-        constraints.weighty = 0.33;
+        constraints.weighty = 0.2;
         gridBagLayout.setConstraints(hostField, constraints);
 
         constraints.gridx = 0;
@@ -200,22 +200,22 @@ public class ConnectionSettingsDialog extends DialogWrapper implements Disposabl
         constraints.gridwidth = 1;
         constraints.gridheight = 1;
         constraints.weightx = 0.85;
-        constraints.weighty = 0.33;
+        constraints.weighty = 0.2;
         gridBagLayout.setConstraints(portField, constraints);
 
         constraints.gridx = 0;
         constraints.gridy = 3;
         constraints.gridwidth = 1;
         constraints.gridheight = 1;
-        constraints.weightx = 0.15;
+        constraints.weightx = 0.1;
         constraints.weighty = 0.33;
-        JLabel splitLabel = new JLabel("");
+        JLabel splitLabel = new JLabel(" ");
         gridBagLayout.setConstraints(splitLabel, constraints);
 
         constraints.gridx = 0;
         constraints.gridy = 4;
         constraints.gridwidth = 1;
-        constraints.gridheight = 1;
+        constraints.gridheight = 2;
         constraints.weightx = 0.15;
         constraints.weighty = 0.33;
         JLabel passwordLabel = new JLabel("Password:");
@@ -224,7 +224,7 @@ public class ConnectionSettingsDialog extends DialogWrapper implements Disposabl
         constraints.gridx = 1;
         constraints.gridy = 4;
         constraints.gridwidth = 1;
-        constraints.gridheight = 1;
+        constraints.gridheight = 2;
         constraints.weightx = 0.85;
         constraints.weighty = 0.33;
         gridBagLayout.setConstraints(passwordField, constraints);
@@ -237,13 +237,23 @@ public class ConnectionSettingsDialog extends DialogWrapper implements Disposabl
 //        constraints.weighty = 0.33;
 //        gridBagLayout.setConstraints(checkBox, constraints);
 
+        constraints.gridx = 0;
+        constraints.gridy = 5;
+        constraints.gridwidth = 1;
+        constraints.gridheight = 1;
+        constraints.weightx = 0.1;
+        constraints.weighty = 0.33;
+        JLabel splitLabel2 = new JLabel("\r\n");
+        gridBagLayout.setConstraints(splitLabel, constraints);
+
         connectionSettingsPanel.add(hostLabel);
         connectionSettingsPanel.add(hostField);
         connectionSettingsPanel.add(portLabel);
         connectionSettingsPanel.add(portField);
-        connectionSettingsPanel.add(splitLabel);
+//        connectionSettingsPanel.add(splitLabel);
         connectionSettingsPanel.add(passwordLabel);
         connectionSettingsPanel.add(passwordField);
+//        connectionSettingsPanel.add(splitLabel2);
 //        connectionSettingsPanel.add(checkBox);
 
         JPanel row = new JPanel(new FlowLayout(FlowLayout.LEFT));
