@@ -76,7 +76,7 @@ public class ConnectionSettingsDialog extends DialogWrapper implements Disposabl
 
         // TODO 参数校验, 输入框下面展示提示
         nameTextField = new JTextField(newConnection ? null : connection.getName());
-        nameTextField.setToolTipText("Connection Name");
+        nameTextField.setToolTipText("Name");
 
         // url port 输入框
         hostField = new JTextField(newConnection ? null : connection.getUrl());
@@ -155,7 +155,7 @@ public class ConnectionSettingsDialog extends DialogWrapper implements Disposabl
         constraints.gridheight = 1;
         constraints.weightx = 0.15;
         constraints.weighty = 0.33;
-        JLabel connectionNameLabel = new JLabel("Connection Name:");
+        JLabel connectionNameLabel = new JLabel("Name:");
         gridBagLayout.setConstraints(connectionNameLabel, constraints);
 
         constraints.gridx = 1;

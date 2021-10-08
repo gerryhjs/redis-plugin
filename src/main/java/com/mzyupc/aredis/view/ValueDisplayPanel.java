@@ -268,7 +268,7 @@ public class ValueDisplayPanel extends JPanel {
         valuePreviewToolbarPanel.add(deleteButton);
         valuePreviewToolbarPanel.add(new JLabel("TTL:"));
         valuePreviewToolbarPanel.add(ttlTextField);
-        valuePreviewToolbarPanel.add(ttlButton);
+//        valuePreviewToolbarPanel.add(ttlButton);
 
         this.add(valuePreviewToolbarPanel, BorderLayout.NORTH);
     }
@@ -840,30 +840,41 @@ public class ValueDisplayPanel extends JPanel {
 
     @NotNull
     private JButton createRenameButton(JBTextField keyTextField) {
-        JButton renameButton = new JButton("Rename key");
+        JButton renameButton = new JButton("Rename");
         renameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 final String newKey = keyTextField.getText();
-                ConfirmDialog confirmDialog = new ConfirmDialog(
-                        project,
-                        "Confirm",
-                        String.format("Do you want to rename \"%s\" to \"%s\"?", key, newKey),
-                        actionEvent -> {
-                            try (Jedis jedis = redisPoolManager.getJedis(dbInfo.getIndex())) {
-                                final Long renamenx = jedis.renamenx(key, newKey);
-                                if (renamenx == 0) {
-                                    ErrorDialog.show(String.format("\"%s\" already exists!", newKey));
-                                } else {
-                                    key = newKey;
-                                    keyTreeDisplayPanel.renderKeyTree(parent.getKeyFilter(), parent.getGroupSymbol());
-                                }
-                            } catch (Exception exception) {
-                                ErrorDialog.show(exception.getMessage());
-                            }
-                        }
-                );
-                confirmDialog.show();
+//                ConfirmDialog confirmDialog = new ConfirmDialog(
+//                        project,
+//                        "Confirm",
+//                        String.format("Do you want to rename \"%s\" to \"%s\"?", key, newKey),
+//                        actionEvent -> {
+//                            try (Jedis jedis = redisPoolManager.getJedis(dbInfo.getIndex())) {
+//                                final Long renamenx = jedis.renamenx(key, newKey);
+//                                if (renamenx == 0) {
+//                                    ErrorDialog.show(String.format("\"%s\" already exists!", newKey));
+//                                } else {
+//                                    key = newKey;
+//                                    keyTreeDisplayPanel.renderKeyTree(parent.getKeyFilter(), parent.getGroupSymbol());
+//                                }
+//                            } catch (Exception exception) {
+//                                ErrorDialog.show(exception.getMessage());
+//                            }
+//                        }
+//                );
+//                confirmDialog.show();
+                try (Jedis jedis = redisPoolManager.getJedis(dbInfo.getIndex())) {
+                    final Long renamenx = jedis.renamenx(key, newKey);
+                    if (renamenx == 0) {
+                        ErrorDialog.show(String.format("\"%s\" already exists!", newKey));
+                    } else {
+                        key = newKey;
+                        keyTreeDisplayPanel.renderKeyTree(parent.getKeyFilter(), parent.getGroupSymbol());
+                    }
+                } catch (Exception exception) {
+                    ErrorDialog.show(exception.getMessage());
+                }
             }
         });
         return renameButton;
@@ -871,7 +882,7 @@ public class ValueDisplayPanel extends JPanel {
 
     @NotNull
     private JButton createReloadValueButton() {
-        JButton reloadButton = new JButton("Reload value");
+        JButton reloadButton = new JButton("Reload");
         reloadButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
