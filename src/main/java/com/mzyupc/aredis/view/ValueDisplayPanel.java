@@ -227,7 +227,7 @@ public class ValueDisplayPanel extends JPanel {
      */
     private void initValuePreviewToolbarPanel() {
         JBTextField keyTextField = new JBTextField(key);
-        keyTextField.setPreferredSize(new Dimension(300, 28));
+        keyTextField.setPreferredSize(new Dimension(400, 28));
         keyTextField.setToolTipText(keyTextField.getText());
         keyTextField.addKeyListener(new KeyListener() {
             @Override
@@ -252,7 +252,7 @@ public class ValueDisplayPanel extends JPanel {
 
         ttlTextField = new JBTextField();
         ttlTextField.setDocument(new DoubleDocument());
-        ttlTextField.setPreferredSize(new Dimension(70, 27));
+        ttlTextField.setPreferredSize(new Dimension(80, 27));
         ttlTextField.setText(ttl.toString());
 
         JButton ttlButton = createTTLButton(ttlTextField);
@@ -263,19 +263,20 @@ public class ValueDisplayPanel extends JPanel {
         JPanel valuePreviewToolbarPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         valuePreviewToolbarPanel.add(new JLabel(typeEnum.name() + ":"));
         valuePreviewToolbarPanel.add(keyTextField);
-        valuePreviewToolbarPanel.add(renameButton);
-        valuePreviewToolbarPanel.add(reloadButton);
+
+//        valuePreviewToolbarPanel.add(reloadButton);
 //        valuePreviewToolbarPanel.add(deleteButton);
+        valuePreviewToolbarPanel.add(renameButton);
         valuePreviewToolbarPanel.add(new JLabel("TTL:"));
         valuePreviewToolbarPanel.add(ttlTextField);
-//        valuePreviewToolbarPanel.add(ttlButton);
+        valuePreviewToolbarPanel.add(ttlButton);
 
         this.add(valuePreviewToolbarPanel, BorderLayout.NORTH);
     }
 
     @NotNull
     private JButton createTTLButton(JBTextField ttlTextField) {
-        JButton ttlButton = new JButton("Set new TTL");
+        JButton ttlButton = new JButton("Set");
         ttlButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
