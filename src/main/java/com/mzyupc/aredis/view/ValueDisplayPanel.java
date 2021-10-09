@@ -281,23 +281,17 @@ public class ValueDisplayPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String text = ttlTextField.getText();
-                new ConfirmDialog(
-                        project,
-                        "Confirm",
-                        String.format("Are you sure you want to set TTL to %s?", text),
-                        actionEvent -> {
-                            try (Jedis jedis = redisPoolManager.getJedis(dbInfo.getIndex())) {
-                                int newTtl = Integer.parseInt(text);
-                                if (newTtl < 0) {
-                                    newTtl = -1;
-                                }
-                                jedis.expire(key, newTtl);
-                                ttl = (long) newTtl;
-                                ttlTextField.setText(ttl.toString());
-                            } catch (NumberFormatException exception) {
-                                ErrorDialog.show("Wrong TTL format for input: " + text);
-                            }
-                        }).show();
+                try (Jedis jedis = redisPoolManager.getJedis(dbInfo.getIndex())) {
+                    int newTtl = Integer.parseInt(text);
+                    if (newTtl < 0) {
+                        newTtl = -1;
+                    }
+                    jedis.expire(key, newTtl);
+                    ttl = (long) newTtl;
+                    ttlTextField.setText(ttl.toString());
+                } catch (NumberFormatException exception) {
+                    ErrorDialog.show("Wrong TTL format for input: " + text);
+                }
             }
         });
         return ttlButton;
