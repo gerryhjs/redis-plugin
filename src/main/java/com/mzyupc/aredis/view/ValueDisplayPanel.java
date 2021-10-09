@@ -696,6 +696,7 @@ public class ValueDisplayPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 AddRowDialog addRowDialog = new AddRowDialog(project, typeEnum);
+                addRowDialog.setTitle("Add New Key");
                 addRowDialog.setCustomOkAction(actionEvent -> {
                     try (Jedis jedis = redisPoolManager.getJedis(dbInfo.getIndex())) {
                         if (!jedis.exists(key)) {

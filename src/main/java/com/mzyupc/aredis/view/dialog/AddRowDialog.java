@@ -42,7 +42,7 @@ public class AddRowDialog extends DialogWrapper {
         super(project);
         this.project = project;
         this.valueTypeEnum = valueTypeEnum;
-
+//        this.setTitle("Add New Key");
         this.init();
     }
 
