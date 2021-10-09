@@ -238,7 +238,9 @@ public class RedisPoolManager extends CloseTranscoder implements Disposable {
             return resource;
         } catch (Exception e) {
             log.warn("Failed to get resource from the pool", e);
-//            ErrorDialog.show(e.getCause().getMessage());
+            if (db == 0) {
+                ErrorDialog.show(e.getCause().getMessage());
+            }
         }
         return null;
     }
@@ -311,7 +313,7 @@ public class RedisPoolManager extends CloseTranscoder implements Disposable {
             if (!Objects.isNull(jedis)) {
                 return jedis.dbSize();
             }
-            return -1L;
+            return 0L;
         } finally {
             close(jedis);
         }
