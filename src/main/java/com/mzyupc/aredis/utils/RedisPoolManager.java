@@ -32,6 +32,8 @@ public class RedisPoolManager extends CloseTranscoder implements Disposable {
     private JedisPool pool = null;
     private static JedisPoolConfig jedisPoolConfig;
 
+    private boolean notice = false;
+
     static {
         jedisPoolConfig = new JedisPoolConfig();
         //连接耗尽时是否阻塞, false报异常,ture阻塞直到超时, 默认true
@@ -158,6 +160,7 @@ public class RedisPoolManager extends CloseTranscoder implements Disposable {
     private synchronized void instancePool() {
 //            HashSet<String> sentinels = new HashSet<>(nodes);
 //            pool = new JedisSentinelPool(masterName, sentinels, jedisPoolConfig, Protocol.DEFAULT_TIMEOUT, password);
+        notice = false;
         try {
             pool = new JedisPool(jedisPoolConfig, host, port, Protocol.DEFAULT_TIMEOUT, password);
         } catch (Exception e) {
@@ -238,8 +241,9 @@ public class RedisPoolManager extends CloseTranscoder implements Disposable {
             return resource;
         } catch (Exception e) {
             log.warn("Failed to get resource from the pool", e);
-            if (db == 0) {
+            if (!notice) {
                 ErrorDialog.show(e.getCause().getMessage());
+                notice = true;
             }
         }
         return null;
@@ -650,7 +654,7 @@ public class RedisPoolManager extends CloseTranscoder implements Disposable {
             } while (!"0".equals(cursor));
         } catch (Exception e) {
 //            throw new IllegalArgumentException(e);
-            ErrorDialog.show("Failed to connect db." + "\n" + e.getMessage());
+//            ErrorDialog.show("Failed to connect db." + "\n" + e.getMessage());
         } finally {
             close(jedis);
         }

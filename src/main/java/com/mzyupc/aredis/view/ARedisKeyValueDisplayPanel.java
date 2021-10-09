@@ -140,7 +140,7 @@ public class ARedisKeyValueDisplayPanel extends JPanel implements Disposable {
         });
 
         JPanel searchBoxPanel = new JPanel();
-        searchBoxPanel.add(new Label(""));
+        searchBoxPanel.add(new JLabel("Filter:"));
         searchBoxPanel.add(searchTextField);
         return searchBoxPanel;
     }
@@ -178,7 +178,7 @@ public class ARedisKeyValueDisplayPanel extends JPanel implements Disposable {
             }
         });
 
-        groupByPanel.add(new Label(""));
+        groupByPanel.add(new JLabel("Group by:"));
         groupByPanel.add(groupText);
         return groupByPanel;
     }
