@@ -269,7 +269,7 @@ public class ValueDisplayPanel extends JPanel {
         valuePreviewToolbarPanel.add(renameButton);
         valuePreviewToolbarPanel.add(new JLabel("TTL:"));
         valuePreviewToolbarPanel.add(ttlTextField);
-        valuePreviewToolbarPanel.add(ttlButton);
+//        valuePreviewToolbarPanel.add(ttlButton);
 
         this.add(valuePreviewToolbarPanel, BorderLayout.NORTH);
     }
