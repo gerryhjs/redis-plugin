@@ -131,13 +131,13 @@ public class KeyTreeDisplayPanel extends JPanel {
                     }
                 }
 
-                if (e.getButton() == MouseEvent.BUTTON3) {
-                    // 获取右键点击所在connectionNodede路径
-                    TreePath pathForLocation = keyTree.getSelectionPath();
-                    if (pathForLocation != null && pathForLocation.getPathCount() > 1) {
-                        createKeyTreePopupMenu().getComponent().show(keyTree, x, y);
-                    }
-                }
+//                if (e.getButton() == MouseEvent.BUTTON3) {
+//                    // 获取右键点击所在connectionNodede路径
+//                    TreePath pathForLocation = keyTree.getSelectionPath();
+//                    if (pathForLocation != null && pathForLocation.getPathCount() > 1) {
+//                        createKeyTreePopupMenu().getComponent().show(keyTree, x, y);
+//                    }
+//                }
             }
         });
         JBScrollPane keyTreeScrollPane = new JBScrollPane(keyTree);
