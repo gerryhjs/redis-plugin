@@ -238,7 +238,7 @@ public class RedisPoolManager extends CloseTranscoder implements Disposable {
             return resource;
         } catch (Exception e) {
             log.warn("Failed to get resource from the pool", e);
-            ErrorDialog.show(e.getCause().getMessage());
+//            ErrorDialog.show(e.getCause().getMessage());
         }
         return null;
     }
@@ -308,7 +308,10 @@ public class RedisPoolManager extends CloseTranscoder implements Disposable {
         Jedis jedis = null;
         try {
             jedis = getJedis(db);
-            return jedis.dbSize();
+            if (!Objects.isNull(jedis)) {
+                return jedis.dbSize();
+            }
+            return -1L;
         } finally {
             close(jedis);
         }
@@ -644,7 +647,8 @@ public class RedisPoolManager extends CloseTranscoder implements Disposable {
                 cursor = scanResult.getStringCursor();
             } while (!"0".equals(cursor));
         } catch (Exception e) {
-            throw new IllegalArgumentException(e);
+//            throw new IllegalArgumentException(e);
+            ErrorDialog.show("Failed to connect db." + "\n" + e.getMessage());
         } finally {
             close(jedis);
         }

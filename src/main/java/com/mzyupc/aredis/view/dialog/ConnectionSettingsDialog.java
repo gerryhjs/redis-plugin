@@ -34,7 +34,7 @@ public class ConnectionSettingsDialog extends DialogWrapper implements Disposabl
     JTextField nameTextField;
     JTextField hostField;
     JTextField portField;
-    JPasswordField passwordField;
+    JTextField passwordField;
     private PropertyUtil propertyUtil;
     private String connectionId;
     private CustomOKAction okAction;
@@ -87,21 +87,21 @@ public class ConnectionSettingsDialog extends DialogWrapper implements Disposabl
         portField.setText(newConnection ? null : connection.getPort());
 
         // password输入框
-        passwordField = new JPasswordField(newConnection ? null : connection.getPassword());
+        passwordField = new JTextField(newConnection ? null : connection.getPassword());
 
         // 显示密码
         JCheckBox checkBox = new JCheckBox("Show Password");
         checkBox.addItemListener(e -> {
-            if (e.getStateChange() == ItemEvent.SELECTED) {
-                passwordField.setEchoChar((char) 0);
-            } else {
-                passwordField.setEchoChar('*');
-            }
+//            if (e.getStateChange() == ItemEvent.SELECTED) {
+//                passwordField.setEchoChar((char) 0);
+//            } else {
+//                passwordField.setEchoChar('*');
+//            }
         });
         checkBox.setBounds(300, 81, 135, 27);
 
         // 测试连接按钮
-        JButton testButton = new JButton("Test Connection");
+        JButton testButton = new JButton("Test");
 
         JTextPane testResult = new JTextPane();
         testResult.setMargin(new Insets(0, 10, 0, 0));
@@ -121,8 +121,8 @@ public class ConnectionSettingsDialog extends DialogWrapper implements Disposabl
                     ErrorDialog.show(validationInfo.message);
                 } else {
                     String password;
-                    if (StringUtils.isNotBlank(new String(passwordField.getPassword()))) {
-                        password = new String(passwordField.getPassword());
+                    if (StringUtils.isNotBlank(new String(passwordField.getText()))) {
+                        password = new String(passwordField.getText());
                     } else {
                         password = null;
                     }
@@ -253,12 +253,14 @@ public class ConnectionSettingsDialog extends DialogWrapper implements Disposabl
 //        connectionSettingsPanel.add(splitLabel);
         connectionSettingsPanel.add(passwordLabel);
         connectionSettingsPanel.add(passwordField);
-//        connectionSettingsPanel.add(splitLabel2);
+//        connectionSettingsPanel.add(testButton);
+//        connectionSettingsPanel.add(splitLabel);
 //        connectionSettingsPanel.add(checkBox);
 
         JPanel row = new JPanel(new FlowLayout(FlowLayout.LEFT));
         row.add(testButton);
-        JPanel testConnectionSettingsPanel = new JPanel(new GridLayout(2, 1));
+        JPanel testConnectionSettingsPanel = new JPanel(new GridLayout(3, 1));
+        testConnectionSettingsPanel.add(splitLabel);
         testConnectionSettingsPanel.add(row);
         testConnectionSettingsPanel.add(loadingDecorator.getComponent());
 
@@ -339,8 +341,8 @@ public class ConnectionSettingsDialog extends DialogWrapper implements Disposabl
                 if (StringUtils.isEmpty(connectionId)) {
                     // 保存connection
                     String password = null;
-                    if (StringUtils.isNotBlank(new String(passwordField.getPassword()))) {
-                        password = new String(passwordField.getPassword());
+                    if (StringUtils.isNotBlank(new String(passwordField.getText()))) {
+                        password = new String(passwordField.getText());
                     }
                     // 持久化连接信息
                     ConnectionInfo connectionInfo = ConnectionInfo.builder()
@@ -357,8 +359,8 @@ public class ConnectionSettingsDialog extends DialogWrapper implements Disposabl
                 } else {
                     // 更新connection
                     String password = null;
-                    if (StringUtils.isNotBlank(new String(passwordField.getPassword()))) {
-                        password = new String(passwordField.getPassword());
+                    if (StringUtils.isNotBlank(new String(passwordField.getText()))) {
+                        password = new String(passwordField.getText());
                     }
                     ConnectionInfo connectionInfo = ConnectionInfo.builder()
                             .id(connectionId)
