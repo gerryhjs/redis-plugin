@@ -132,7 +132,7 @@ public class ConnectionSettingsDialog extends DialogWrapper implements Disposabl
                         RedisPoolManager.TestConnectionResult testConnectionResult = RedisPoolManager.getTestConnectionResult(hostField.getText(), Integer.parseInt(portField.getText()), password);
                         testResult.setText(testConnectionResult.getMsg());
                         if (testConnectionResult.isSuccess()) {
-                            testResult.setForeground(JBColor.BLUE);
+                            testResult.setForeground(JBColor.GREEN);
                         } else {
                             testResult.setForeground(JBColor.RED);
                         }
