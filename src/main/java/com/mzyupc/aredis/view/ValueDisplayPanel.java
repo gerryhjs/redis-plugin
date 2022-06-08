@@ -151,7 +151,7 @@ public class ValueDisplayPanel extends JPanel {
 
 
                 ScanParams scanParams = new ScanParams();
-                scanParams.count(pageSize);
+//                scanParams.count(pageSize);
                 scanParams.match("*");
 
                 switch (type) {
@@ -174,7 +174,7 @@ public class ValueDisplayPanel extends JPanel {
                         total = jedis.scard(key);
                         String setPointer = pageIndexPointerMap.get(pageIndex);
                         ScanResult<String> sscanResult = jedis.sscan(key, setPointer, scanParams);
-                        pageIndexPointerMap.put(pageIndex + 1, sscanResult.getStringCursor());
+//                        pageIndexPointerMap.put(pageIndex + 1, sscanResult.getStringCursor());
                         value = new Value(sscanResult.getResult());
                         break;
 
@@ -183,7 +183,7 @@ public class ValueDisplayPanel extends JPanel {
                         total = jedis.zcard(key);
                         String zsetPointer = pageIndexPointerMap.get(pageIndex);
                         ScanResult<Tuple> zscanResult = jedis.zscan(key, zsetPointer, scanParams);
-                        pageIndexPointerMap.put(pageIndex + 1, zscanResult.getStringCursor());
+//                        pageIndexPointerMap.put(pageIndex + 1, zscanResult.getStringCursor());
                         value = new Value(zscanResult.getResult());
                         break;
 
@@ -192,7 +192,7 @@ public class ValueDisplayPanel extends JPanel {
                         total = jedis.hlen(key);
                         String hashPointer = pageIndexPointerMap.get(pageIndex);
                         ScanResult<Map.Entry<String, String>> hscanResult = jedis.hscan(key, hashPointer, scanParams);
-                        pageIndexPointerMap.put(pageIndex + 1, hscanResult.getStringCursor());
+//                        pageIndexPointerMap.put(pageIndex + 1, hscanResult.getStringCursor());
                         value = new Value(hscanResult.getResult());
                         break;
 
@@ -308,6 +308,11 @@ public class ValueDisplayPanel extends JPanel {
                         "Confirm",
                         "Are you sure you want to delete this key?",
                         actionEvent -> {
+                            try (Jedis jedis = redisPoolManager.getJedis(dbInfo.getIndex())) {
+                                if (jedis == null) {
+                                    return;
+                                }
+                            }
                             DefaultTreeModel treeModel = keyTreeDisplayPanel.getTreeModel();
                             DefaultMutableTreeNode root = (DefaultMutableTreeNode) treeModel.getRoot();
                             DefaultMutableTreeNode deletedNode = deleteNode(root, key);
@@ -460,7 +465,7 @@ public class ValueDisplayPanel extends JPanel {
 
             JPanel valueTableButtonPanel = new JPanel(new BorderLayout());
             valueTableButtonPanel.add(rowButtonPanel, BorderLayout.NORTH);
-            valueTableButtonPanel.add(pagePanel, BorderLayout.SOUTH);
+//            valueTableButtonPanel.add(pagePanel, BorderLayout.SOUTH);
 
             JBScrollPane valueTableScrollPane = new JBScrollPane(valueTable);
             /**
@@ -578,10 +583,10 @@ public class ValueDisplayPanel extends JPanel {
                 }
             }
         });
-        pageButtonPanel.add(prevPageButton);
-        pageButtonPanel.add(nextPageButton);
-
-        pagePanel.add(pageButtonPanel);
+//        pageButtonPanel.add(prevPageButton);
+//        pageButtonPanel.add(nextPageButton);
+//
+//        pagePanel.add(pageButtonPanel);
         return pagePanel;
     }
 
