@@ -786,12 +786,12 @@ public class ValueDisplayPanel extends JPanel {
         switch (typeEnum) {
             case String:
                 try (Jedis jedis = redisPoolManager.getJedis(dbInfo.getIndex())) {
-                    try {
-                        jedis.set(key, newValue);
-                        jedis.expire(key, Integer.parseInt(ttlValue));
-                    } catch (Exception e) {
-                        jedis.set(key, newValue);
+                    jedis.set(key, newValue);
+                    int newTtl = Integer.parseInt(ttlValue);
+                    if (newTtl < 0) {
+                        newTtl = -1;
                     }
+                    jedis.expire(key, newTtl);
                 }
                 break;
 
