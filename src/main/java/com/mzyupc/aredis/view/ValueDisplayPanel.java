@@ -651,7 +651,7 @@ public class ValueDisplayPanel extends JPanel {
                 new ConfirmDialog(
                         project,
                         "Confirm",
-                        "Do you really want to remove this row?",
+                        "Are you sure you want to remove this row?",
                         actionEvent -> {
                             try (Jedis jedis = redisPoolManager.getJedis(dbInfo.getIndex())) {
                                 if (!jedis.exists(key)) {
