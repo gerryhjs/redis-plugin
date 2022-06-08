@@ -31,16 +31,16 @@ public class ConfirmDialog extends DialogWrapper {
         String text = "";
         switch (centerPanelText){
             case "Are you sure you want to delete these connections?":
-                text = "您是否要删除此连接？";
+                text = " 您是否要删除此连接？";
                 break;
             case "Are you sure you want to delete all the keys of the currently selected DB?":
-                text = "您是否要清空当前数据库？";
+                text = " 您是否要清空当前数据库？";
                 break;
             case "Are you sure you want to delete this key?":
-                text = "您是否确认要删除选中的键？";
+                text = " 您是否确认要删除选中的键？";
                 break;
             case "Are you sure you want to remove this row?":
-                text = "您是否确认要删除选中的行？";
+                text = " 您是否确认要删除选中的行？";
                 break;
             default:
                 text = centerPanelText;
