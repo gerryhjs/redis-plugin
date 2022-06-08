@@ -284,9 +284,11 @@ public class ValueDisplayPanel extends JPanel {
                 try (Jedis jedis = redisPoolManager.getJedis(dbInfo.getIndex())) {
                     long newTtl = Long.parseLong(text);
                     if (newTtl < 0) {
-                        newTtl = -1L;
+                        newTtl = -1;
+                        jedis.persist(key);
+                    } else {
+                        jedis.expire(key, newTtl);
                     }
-                    jedis.expire(key, newTtl);
                     ttl = (long) newTtl;
                     ttlTextField.setText(ttl.toString());
                 } catch (NumberFormatException exception) {
@@ -789,9 +791,11 @@ public class ValueDisplayPanel extends JPanel {
                     jedis.set(key, newValue);
                     long newTtl = Long.parseLong(ttlValue);
                     if (newTtl < 0) {
-                        newTtl = -1L;
+                        newTtl = -1;
+                        jedis.persist(key);
+                    } else {
+                        jedis.expire(key, newTtl);
                     }
-                    jedis.expire(key, newTtl);
                 }
                 break;
 
