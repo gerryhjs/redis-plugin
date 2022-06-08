@@ -103,13 +103,14 @@ public class NewKeyDialog extends DialogWrapper {
         keyAndTypePanel.add(typePanel, BorderLayout.SOUTH);
 
         JBCheckBox reloadCheckBox = new JBCheckBox("Reload after adding the key", reloadSelected);
-        reloadCheckBox.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                reloadSelected = reloadCheckBox.isSelected();
-                propertyUtil.setReloadAfterAddingTheKey(reloadSelected);
-            }
-        });
+//        reloadCheckBox.addChangeListener(new ChangeListener() {
+//            @Override
+//            public void stateChanged(ChangeEvent e) {
+//                reloadSelected = reloadCheckBox.isSelected();
+//                propertyUtil.setReloadAfterAddingTheKey(reloadSelected);
+//            }
+//        });
+        propertyUtil.setReloadAfterAddingTheKey(true);
         JPanel reloadPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         reloadPanel.add(reloadCheckBox);
 
@@ -117,7 +118,7 @@ public class NewKeyDialog extends DialogWrapper {
         container.setMinimumSize(new Dimension(500, 250));
         container.add(keyAndTypePanel, BorderLayout.NORTH);
         container.add(valuePanel, BorderLayout.CENTER);
-        container.add(reloadPanel, BorderLayout.AFTER_LAST_LINE);
+//        container.add(reloadPanel, BorderLayout.AFTER_LAST_LINE);
 
         return container;
     }
