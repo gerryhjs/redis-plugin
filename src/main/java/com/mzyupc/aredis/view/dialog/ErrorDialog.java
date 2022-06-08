@@ -8,6 +8,6 @@ import com.intellij.openapi.ui.Messages;
  */
 public class ErrorDialog {
     public static void show(String message) {
-        Messages.showMessageDialog(message, "Error", Messages.getErrorIcon());
+        Messages.showMessageDialog(message, "错误", Messages.getErrorIcon());
     }
 }
