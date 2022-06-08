@@ -227,7 +227,7 @@ public class ValueDisplayPanel extends JPanel {
      */
     private void initValuePreviewToolbarPanel() {
         JBTextField keyTextField = new JBTextField(key);
-        keyTextField.setPreferredSize(new Dimension(300, 28));
+        keyTextField.setPreferredSize(new Dimension(300, 35));
         keyTextField.setToolTipText(keyTextField.getText());
         keyTextField.addKeyListener(new KeyListener() {
             @Override
@@ -252,7 +252,7 @@ public class ValueDisplayPanel extends JPanel {
 
         ttlTextField = new JBTextField();
         ttlTextField.setDocument(new DoubleDocument());
-        ttlTextField.setPreferredSize(new Dimension(80, 27));
+        ttlTextField.setPreferredSize(new Dimension(80, 35));
         ttlTextField.setText(ttl.toString());
 
         JButton ttlButton = createTTLButton(ttlTextField);
