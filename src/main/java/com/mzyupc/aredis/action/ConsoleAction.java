@@ -9,6 +9,6 @@ import com.intellij.icons.AllIcons;
  */
 public class ConsoleAction extends CustomAction{
     public ConsoleAction() {
-        super("Console", "Console", AllIcons.Debugger.Console);
+        super("终端", "终端", AllIcons.Debugger.Console);
     }
 }

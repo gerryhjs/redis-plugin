@@ -10,6 +10,6 @@ import com.intellij.icons.AllIcons;
 public class AddAction extends CustomAction {
 
     public AddAction() {
-        super("Add", "Add", AllIcons.General.Add);
+        super("添加", "添加", AllIcons.General.Add);
     }
 }

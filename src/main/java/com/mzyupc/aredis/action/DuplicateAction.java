@@ -10,6 +10,6 @@ import com.intellij.icons.AllIcons;
 public class DuplicateAction extends CustomAction {
 
     public DuplicateAction() {
-        super("Duplicate", "Duplicate", AllIcons.Actions.Copy);
+        super("复制", "复制", AllIcons.Actions.Copy);
     }
 }

@@ -10,6 +10,6 @@ import com.intellij.icons.AllIcons;
 public class EditAction extends CustomAction {
 
     public EditAction() {
-        super("Edit", "Edit", AllIcons.Actions.Edit);
+        super("编辑", "编辑", AllIcons.Actions.Edit);
     }
 }

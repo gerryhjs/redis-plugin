@@ -69,7 +69,7 @@ public class AddRowDialog extends DialogWrapper {
     @NotNull
     @Override
     protected Action[] createActions() {
-        DialogWrapperExitAction exitAction = new DialogWrapperExitAction("Cancel", CANCEL_EXIT_CODE);
+        DialogWrapperExitAction exitAction = new DialogWrapperExitAction("取消", CANCEL_EXIT_CODE);
         AddRowDialog.CustomOKAction okAction = new AddRowDialog.CustomOKAction();
         // 设置默认的焦点按钮
         okAction.putValue(DialogWrapper.DEFAULT_ACTION, true);
@@ -166,7 +166,7 @@ public class AddRowDialog extends DialogWrapper {
      */
     protected class CustomOKAction extends DialogWrapperAction {
         protected CustomOKAction() {
-            super("OK");
+            super("确认");
         }
 
         @Override

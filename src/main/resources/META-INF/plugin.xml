@@ -1,37 +1,55 @@
 <idea-plugin>
-    <id>com.mzyupc.a-redis</id>
-    <name>Redis Helper</name>
-    <vendor email="mzyupc@163.com" url="https://github.com/MattMin">MattMin</vendor>
-
-    <description><![CDATA[
-    <div>
-        A simple and open source IntelliJ-based Redis plugin
-    </div>
-    <div style="white-space:normal; word-break:break-all; width:100%">
-        <ul>
-            <li>Convenient management of Redis connections</li>
-            <li>Display DB and number of keys</li>
-            <li>Filtering and grouping of keys</li>
-            <li>Support paging to display keys and value</li>
-            <li>Support adding, modifying and deleting keys and value</li>
-            <li>Support displaying String, List, Set, ZSet, Hash data formats</li>
-            <li>The value can be formatted as JSON, XML, HTML for display</li>
-        </ul>
-    </div>
-    <br>
-    If you have any suggestions, questions or bugs about this plugin,
-    please issue them on <a href="https://github.com/MattMin/a-redis">Github</a>,
-    and if you like this plugin, just click the star on <a href="https://github.com/MattMin/a-redis">Github</a> to show your support.
-    ]]></description>
-
+    <version>2.0</version>
+    <change-notes>
+        2.0: Add Chinese translate. If you want to use English version please stay 1.0.
+    </change-notes>
+    <idea-version since-build="201.8743.12" until-build="311.*" />
+    <id>com.gerry.redis</id>
+    <name>Redis Helper By Gerry</name>
+    <vendor email="" url="">Gerry(Original author:Matt Min)</vendor>
+    <description><![CDATA[<div>
+A fork from https://github.com/MattMin/a-redis. <br/>
+Remove some addtional function based on custom use case and reserve key function.<br/>
+Function<br/>
+1. Redis connection management<br/>
+add<br/>
+batch delete<br/>
+reload<br/>
+edit<br/>
+duplicate<br/>
+console<br/>
+close<br/>
+view the number of keys in DB and DB<br/>
+2. Key management<br/>
+filter(paging)<br/>
+group<br/>
+reload<br/>
+add(String, List, Set, ZSet, Hash)<br/>
+batch delete<br/>
+flush DB<br/>
+quick search<br/>
+rename<br/>
+view type of the key<br/>
+3. Value management<br/>
+reload<br/>
+delete(a row in List/Set/ZSet/Hash)<br/>
+set TTL<br/>
+edit/save(include Value/Field of Hash/Score of ZSet)<br/>
+add(a row in List/Set/ZSet/Hash)<br/>
+paging(List/Set/ZSet/Hash)<br/>
+format value to json<br/>
+]]></description>
     <!-- please see https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html
-         on how to target different products -->
+           on how to target different products -->
     <depends>com.intellij.modules.platform</depends>
-
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="com.mzyupc.aredis.factory.ARedisToolWindowFactory" id="Redis Helper" secondary="false"
-                    icon="AllIcons.Debugger.Db_db_object" anchor="right"/>
-        <fileEditorProvider implementation="com.mzyupc.aredis.view.editor.ARedisEditorProvider"/>
-        <projectService serviceImplementation="com.mzyupc.aredis.view.editor.ARedisFileSystem"/>
+        <toolWindow factoryClass="com.mzyupc.aredis.factory.ARedisToolWindowFactory" id="Redis" secondary="false" icon="AllIcons.Debugger.Db_db_object" anchor="left" />
+        <fileEditorProvider implementation="com.mzyupc.aredis.view.editor.KeyValueDisplayEditorProvider" />
+        <projectService serviceImplementation="com.mzyupc.aredis.view.editor.KeyValueDisplayFileSystem" />
+        <fileEditorProvider implementation="com.mzyupc.aredis.view.editor.ConsoleEditorProvider" />
+        <projectService serviceImplementation="com.mzyupc.aredis.view.editor.ConsoleFileSystem" />
+        <!--        <fileType name="Redis Cmd" extensions="rcmd"-->
+        <!--                  implementationClass="com.mzyupc.aredis.view.language.RedisCmdLanguageFileType" language="REDIS_CMD"/>-->
     </extensions>
+    <extensionPoints />
 </idea-plugin>

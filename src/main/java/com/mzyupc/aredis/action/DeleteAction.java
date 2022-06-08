@@ -10,6 +10,6 @@ import com.intellij.icons.AllIcons;
 public class DeleteAction extends CustomAction {
 
     public DeleteAction() {
-        super("Delete", "Delete", AllIcons.General.Remove);
+        super("删除", "删除", AllIcons.General.Remove);
     }
 }

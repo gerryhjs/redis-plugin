@@ -53,7 +53,7 @@ public class ConnectionSettingsDialog extends DialogWrapper implements Disposabl
         this.connectionId = connectionId;
         this.connectionTree = connectionTree;
         this.connectionManager = connectionManager;
-        this.setTitle("Connection Settings");
+        this.setTitle("连接设置");
         this.setSize(600, 300);
         this.init();
     }
@@ -101,7 +101,7 @@ public class ConnectionSettingsDialog extends DialogWrapper implements Disposabl
         checkBox.setBounds(300, 81, 135, 27);
 
         // 测试连接按钮
-        JButton testButton = new JButton("Test");
+        JButton testButton = new JButton("测试");
 
         JTextPane testResult = new JTextPane();
         testResult.setMargin(new Insets(0, 10, 0, 0));
@@ -132,6 +132,7 @@ public class ConnectionSettingsDialog extends DialogWrapper implements Disposabl
                         RedisPoolManager.TestConnectionResult testConnectionResult = RedisPoolManager.getTestConnectionResult(hostField.getText(), Integer.parseInt(portField.getText()), password);
                         testResult.setText(testConnectionResult.getMsg());
                         if (testConnectionResult.isSuccess()) {
+                            testResult.setText("已连接");
                             testResult.setForeground(JBColor.GREEN);
                         } else {
                             testResult.setForeground(JBColor.RED);
@@ -155,7 +156,7 @@ public class ConnectionSettingsDialog extends DialogWrapper implements Disposabl
         constraints.gridheight = 1;
         constraints.weightx = 0.15;
         constraints.weighty = 0.33;
-        JLabel connectionNameLabel = new JLabel("Name:");
+        JLabel connectionNameLabel = new JLabel("名称:");
         gridBagLayout.setConstraints(connectionNameLabel, constraints);
 
         constraints.gridx = 1;
@@ -175,7 +176,7 @@ public class ConnectionSettingsDialog extends DialogWrapper implements Disposabl
         constraints.gridheight = 1;
         constraints.weightx = 0.15;
         constraints.weighty = 0.33;
-        JLabel hostLabel = new JLabel("Host:");
+        JLabel hostLabel = new JLabel("主机:");
         gridBagLayout.setConstraints(hostLabel, constraints);
 
         constraints.gridx = 1;
@@ -192,7 +193,7 @@ public class ConnectionSettingsDialog extends DialogWrapper implements Disposabl
         constraints.gridheight = 1;
         constraints.weightx = 0.15;
         constraints.weighty = 0.33;
-        JLabel portLabel = new JLabel("Port:");
+        JLabel portLabel = new JLabel("端口:");
         gridBagLayout.setConstraints(portLabel, constraints);
 
         constraints.gridx = 1;
@@ -218,7 +219,7 @@ public class ConnectionSettingsDialog extends DialogWrapper implements Disposabl
         constraints.gridheight = 2;
         constraints.weightx = 0.15;
         constraints.weighty = 0.33;
-        JLabel passwordLabel = new JLabel("Password:");
+        JLabel passwordLabel = new JLabel("密码:");
         gridBagLayout.setConstraints(passwordLabel, constraints);
 
         constraints.gridx = 1;
@@ -283,7 +284,7 @@ public class ConnectionSettingsDialog extends DialogWrapper implements Disposabl
     @NotNull
     @Override
     protected Action[] createActions() {
-        DialogWrapperExitAction exitAction = new DialogWrapperExitAction("Cancel", CANCEL_EXIT_CODE);
+        DialogWrapperExitAction exitAction = new DialogWrapperExitAction("取消", CANCEL_EXIT_CODE);
         okAction = new CustomOKAction();
 
         // 设置默认的焦点按钮
@@ -300,18 +301,18 @@ public class ConnectionSettingsDialog extends DialogWrapper implements Disposabl
     protected ValidationInfo doValidate(boolean isTest) {
         if (!isTest) {
             if (StringUtils.isBlank(nameTextField.getText())) {
-                return new ValidationInfo("Connection Name can not be empty");
+                return new ValidationInfo("连接名称不能为空");
             }
         }
         if (StringUtils.isBlank(hostField.getText())) {
-            return new ValidationInfo("Host can not be empty");
+            return new ValidationInfo("主机不能为空");
         }
         String port = portField.getText();
         if (StringUtils.isBlank(port)) {
-            return new ValidationInfo("Port can not be empty");
+            return new ValidationInfo("端口不能为空");
         }
         if (!StringUtils.isNumeric(port)) {
-            return new ValidationInfo("Port must be in digital form");
+            return new ValidationInfo("端口必须是数字");
         }
         return null;
     }
@@ -327,7 +328,7 @@ public class ConnectionSettingsDialog extends DialogWrapper implements Disposabl
     protected class CustomOKAction extends DialogWrapperAction {
 
         protected CustomOKAction() {
-            super("OK");
+            super("确认");
         }
 
         @Override

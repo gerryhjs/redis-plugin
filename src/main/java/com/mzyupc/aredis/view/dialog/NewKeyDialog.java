@@ -309,7 +309,7 @@ public class NewKeyDialog extends DialogWrapper {
     @NotNull
     @Override
     protected Action[] createActions() {
-        DialogWrapperExitAction exitAction = new DialogWrapperExitAction("Cancel", CANCEL_EXIT_CODE);
+        DialogWrapperExitAction exitAction = new DialogWrapperExitAction("取消", CANCEL_EXIT_CODE);
         NewKeyDialog.CustomOKAction okAction = new NewKeyDialog.CustomOKAction();
         // 设置默认的焦点按钮
         okAction.putValue(DialogWrapper.DEFAULT_ACTION, true);
@@ -322,7 +322,7 @@ public class NewKeyDialog extends DialogWrapper {
      */
     protected class CustomOKAction extends DialogWrapperAction {
         protected CustomOKAction() {
-            super("OK");
+            super("确认");
         }
 
         @Override

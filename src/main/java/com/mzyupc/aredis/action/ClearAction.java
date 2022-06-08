@@ -10,6 +10,6 @@ import com.intellij.icons.AllIcons;
 public class ClearAction extends CustomAction {
 
     public ClearAction() {
-        super("Flush DB", "Flush DB", AllIcons.Actions.GC);
+        super("清空", "清空", AllIcons.Actions.GC);
     }
 }

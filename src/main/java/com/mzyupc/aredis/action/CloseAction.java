@@ -10,6 +10,6 @@ import com.intellij.icons.AllIcons;
 public class CloseAction extends CustomAction {
 
     public CloseAction() {
-        super("Close", "Close", AllIcons.Actions.Cancel);
+        super("关闭", "关闭", AllIcons.Actions.Cancel);
     }
 }

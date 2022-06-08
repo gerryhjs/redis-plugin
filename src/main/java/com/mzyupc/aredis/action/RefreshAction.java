@@ -10,7 +10,7 @@ import com.intellij.icons.AllIcons;
 public class RefreshAction extends CustomAction {
 
     public RefreshAction() {
-        super("Reload", "Reload", AllIcons.Actions.Refresh);
+        super("刷新", "刷新", AllIcons.Actions.Refresh);
     }
 
 }
