@@ -1,7 +1,7 @@
 <idea-plugin>
     <version>2.0</version>
     <change-notes>
-        2.0: Add Chinese translate. If you want to use English version please stay 1.0.
+        2.0: Add Chinese translation. If you want to use English version please stay 1.0.
     </change-notes>
     <idea-version since-build="201.8743.12" until-build="311.*" />
     <id>com.gerry.redis</id>
