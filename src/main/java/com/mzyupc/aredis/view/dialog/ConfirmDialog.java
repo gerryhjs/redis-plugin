@@ -40,6 +40,7 @@ public class ConfirmDialog extends DialogWrapper {
                 text = " 您是否确认要删除选中的键？";
                 break;
             case "Are you sure you want to remove this row?":
+            case "Do you really want to remove this row?":
                 text = " 您是否确认要删除选中的行？";
                 break;
             default:
