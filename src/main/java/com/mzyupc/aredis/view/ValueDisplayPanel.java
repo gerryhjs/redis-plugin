@@ -282,9 +282,9 @@ public class ValueDisplayPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 String text = ttlTextField.getText();
                 try (Jedis jedis = redisPoolManager.getJedis(dbInfo.getIndex())) {
-                    int newTtl = Integer.parseInt(text);
+                    long newTtl = Long.parseLong(text);
                     if (newTtl < 0) {
-                        newTtl = -1;
+                        newTtl = -1L;
                     }
                     jedis.expire(key, newTtl);
                     ttl = (long) newTtl;
@@ -787,9 +787,9 @@ public class ValueDisplayPanel extends JPanel {
             case String:
                 try (Jedis jedis = redisPoolManager.getJedis(dbInfo.getIndex())) {
                     jedis.set(key, newValue);
-                    int newTtl = Integer.parseInt(ttlValue);
+                    long newTtl = Long.parseLong(ttlValue);
                     if (newTtl < 0) {
-                        newTtl = -1;
+                        newTtl = -1L;
                     }
                     jedis.expire(key, newTtl);
                 }

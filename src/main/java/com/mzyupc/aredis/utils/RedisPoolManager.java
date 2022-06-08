@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.reflect.MethodUtils;
 import redis.clients.jedis.*;
 import redis.clients.jedis.exceptions.JedisException;
-import redis.clients.util.Pool;
+import redis.clients.jedis.util.Pool;
 
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
@@ -640,23 +640,20 @@ public class RedisPoolManager extends CloseTranscoder implements Disposable {
 
     public List<String> scan(String cursor, String pattern, int count, int db) {
         List<String> list = new ArrayList<>();
-        Jedis jedis = null;
-        try {
-            jedis = getJedis(db);
+        try (Jedis jedis = getJedis(db)) {
+            if (jedis == null) {
+                return null;
+            }
             ScanParams scanParams = new ScanParams();
             scanParams.count(count);
             scanParams.match(pattern);
-
             do {
                 ScanResult<String> scanResult = jedis.scan(cursor, scanParams);
                 list.addAll(scanResult.getResult());
-                cursor = scanResult.getStringCursor();
+                cursor = scanResult.getCursor();
             } while (!"0".equals(cursor));
         } catch (Exception e) {
-//            throw new IllegalArgumentException(e);
-//            ErrorDialog.show("Failed to connect db." + "\n" + e.getMessage());
-        } finally {
-            close(jedis);
+            throw new IllegalArgumentException(e);
         }
         return list;
     }
