@@ -787,7 +787,8 @@ public class ValueDisplayPanel extends JPanel {
             case String:
                 try (Jedis jedis = redisPoolManager.getJedis(dbInfo.getIndex())) {
                     try {
-                        jedis.set(key, newValue, "XX", "EX", Long.parseLong(ttlValue));
+                        jedis.set(key, newValue);
+                        jedis.expire(key, Integer.parseInt(ttlValue));
                     } catch (Exception e) {
                         jedis.set(key, newValue);
                     }
