@@ -28,9 +28,27 @@ public class ConfirmDialog extends DialogWrapper {
      */
     public ConfirmDialog(@NotNull Project project, String title, String centerPanelText, Consumer<ActionEvent> customOkFunction) {
         super(project);
-        this.centerPanelText = centerPanelText;
+        String text = "";
+        switch (centerPanelText){
+            case "Are you sure you want to delete these connections?":
+                text = "您是否要删除此连接？";
+                break;
+            case "Are you sure you want to delete all the keys of the currently selected DB?":
+                text = "您是否要清空当前数据库？";
+                break;
+            case "Are you sure you want to delete this key?":
+                text = "您是否确认要删除选中的键？";
+                break;
+            case "Are you sure you want to remove this row?":
+                text = "您是否确认要删除选中的行？";
+                break;
+            default:
+                text = centerPanelText;
+                break;
+        }
+        this.centerPanelText = text;
         this.customOkFunction = customOkFunction;
-        this.setTitle(title);
+        this.setTitle("提示");
         this.setResizable(false);
         this.setAutoAdjustable(true);
         this.init();
