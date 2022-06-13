@@ -76,7 +76,7 @@ public class ValueDisplayPanel extends JPanel {
     private LoadingDecorator loadingDecorator;
 
     private EditorTextField valueTextArea;
-
+    private JBTextField ttlTextField;
     /**
      * value内部预览区 选中的value
      */
@@ -231,7 +231,7 @@ public class ValueDisplayPanel extends JPanel {
      */
     private void initValuePreviewToolbarPanel() {
         JBTextField keyTextField = new JBTextField(key);
-        keyTextField.setPreferredSize(new Dimension(200, 28));
+        keyTextField.setPreferredSize(new Dimension(300, 35));
         keyTextField.setToolTipText(keyTextField.getText());
         keyTextField.addKeyListener(new KeyListener() {
             @Override
@@ -254,9 +254,9 @@ public class ValueDisplayPanel extends JPanel {
 
         JButton deleteButton = createDeleteButton();
 
-        JBTextField ttlTextField = new JBTextField();
+        ttlTextField = new JBTextField();
         ttlTextField.setDocument(new DoubleDocument());
-        ttlTextField.setPreferredSize(new Dimension(70, 27));
+        ttlTextField.setPreferredSize(new Dimension(80, 35));
         ttlTextField.setText(ttl.toString());
 
         JButton ttlButton = createTTLButton(ttlTextField);
@@ -284,27 +284,19 @@ public class ValueDisplayPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String text = ttlTextField.getText();
-                new ConfirmDialog(
-                        project,
-                        "Confirm",
-                        String.format("Are you sure you want to set TTL to %s?", text),
-                        actionEvent -> {
-                            try (Jedis jedis = redisPoolManager.getJedis(dbInfo.getIndex())) {
-                                if (jedis == null) {
-                                    return;
-                                }
-
-                                long newTtl = Long.parseLong(text);
-                                if (newTtl < 0) {
-                                    newTtl = -1;
-                                }
-                                jedis.expire(key, newTtl);
-                                ttl = newTtl;
-                                ttlTextField.setText(ttl.toString());
-                            } catch (NumberFormatException exception) {
-                                ErrorDialog.show("Wrong TTL format for input: " + text);
-                            }
-                        }).show();
+                try (Jedis jedis = redisPoolManager.getJedis(dbInfo.getIndex())) {
+                    long newTtl = Long.parseLong(text);
+                    if (newTtl < 0) {
+                        newTtl = -1;
+                        jedis.persist(key);
+                    } else {
+                        jedis.expire(key, newTtl);
+                    }
+                    ttl = (long) newTtl;
+                    ttlTextField.setText(ttl.toString());
+                } catch (NumberFormatException exception) {
+                    ErrorDialog.show("Wrong TTL format for input: " + text);
+                }
             }
         });
         return ttlButton;
@@ -644,6 +636,9 @@ public class ValueDisplayPanel extends JPanel {
             }
         });
 
+        // 单击表头排序
+        valueTable.setAutoCreateRowSorter(true);
+
         return valueTable;
     }
 
@@ -664,9 +659,6 @@ public class ValueDisplayPanel extends JPanel {
                         "Do you really want to remove this row?",
                         actionEvent -> {
                             try (Jedis jedis = redisPoolManager.getJedis(dbInfo.getIndex())) {
-                                if (jedis == null) {
-                                    return;
-                                }
                                 if (!jedis.exists(key)) {
                                     ErrorDialog.show(String.format("No such key: %s", key));
                                 } else {
@@ -777,31 +769,38 @@ public class ValueDisplayPanel extends JPanel {
                 }
 
                 String newValue = valueTextArea.getText();
-                if (StringUtils.isEmpty(newValue)) {
-                    ErrorDialog.show("Please enter a valid Value!");
-                    return;
-                }
 
-                new ConfirmDialog(
-                        project,
-                        "Confirm",
-                        "Do you really want to save this?",
-                        actionEvent -> {
-                            saveNewValue(newField, newValue);
-                        }).show();
+                String ttlValue = ttlTextField.getText();
+
+//                if (StringUtils.isEmpty(newValue)) {
+//                    ErrorDialog.show("Please enter a valid Value!");
+//                    return;
+//                }
+//                new ConfirmDialog(
+//                        project,
+//                        "Confirm",
+//                        "Do you really want to save this?",
+//                        actionEvent -> {
+//                            saveNewValue(newField, newValue, ttlValue);
+//                        }).show();
+                saveNewValue(newField, newValue, ttlValue);
             }
         });
         return saveValueButton;
     }
 
-    private void saveNewValue(String newFieldOrScore, String newValue) {
+    private void saveNewValue(String newFieldOrScore, String newValue, String ttlValue) {
         switch (typeEnum) {
             case String:
                 try (Jedis jedis = redisPoolManager.getJedis(dbInfo.getIndex())) {
-                    if (jedis == null) {
-                        return;
-                    }
                     jedis.set(key, newValue);
+                    long newTtl = Long.parseLong(ttlValue);
+                    if (newTtl < 0) {
+                        newTtl = -1;
+                        jedis.persist(key);
+                    } else {
+                        jedis.expire(key, newTtl);
+                    }
                 }
                 break;
 
@@ -869,28 +868,36 @@ public class ValueDisplayPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 final String newKey = keyTextField.getText();
-                ConfirmDialog confirmDialog = new ConfirmDialog(
-                        project,
-                        "Confirm",
-                        String.format("Do you want to rename \"%s\" to \"%s\"?", key, newKey),
-                        actionEvent -> {
-                            try (Jedis jedis = redisPoolManager.getJedis(dbInfo.getIndex())) {
-                                if (jedis == null) {
-                                    return;
-                                }
-                                final Long renamenx = jedis.renamenx(key, newKey);
-                                if (renamenx == 0) {
-                                    ErrorDialog.show(String.format("\"%s\" already exists!", newKey));
-                                } else {
-                                    key = newKey;
-                                    keyTreeDisplayPanel.renderKeyTree(parent.getKeyFilter(), parent.getGroupSymbol());
-                                }
-                            } catch (Exception exception) {
-                                ErrorDialog.show(exception.getMessage());
-                            }
-                        }
-                );
-                confirmDialog.show();
+//                ConfirmDialog confirmDialog = new ConfirmDialog(
+//                        project,
+//                        "Confirm",
+//                        String.format("Do you want to rename \"%s\" to \"%s\"?", key, newKey),
+//                        actionEvent -> {
+//                            try (Jedis jedis = redisPoolManager.getJedis(dbInfo.getIndex())) {
+//                                final Long renamenx = jedis.renamenx(key, newKey);
+//                                if (renamenx == 0) {
+//                                    ErrorDialog.show(String.format("\"%s\" already exists!", newKey));
+//                                } else {
+//                                    key = newKey;
+//                                    keyTreeDisplayPanel.renderKeyTree(parent.getKeyFilter(), parent.getGroupSymbol());
+//                                }
+//                            } catch (Exception exception) {
+//                                ErrorDialog.show(exception.getMessage());
+//                            }
+//                        }
+//                );
+//                confirmDialog.show();
+                try (Jedis jedis = redisPoolManager.getJedis(dbInfo.getIndex())) {
+                    final Long renamenx = jedis.renamenx(key, newKey);
+                    if (renamenx == 0) {
+                        ErrorDialog.show(String.format("\"%s\" already exists!", newKey));
+                    } else {
+                        key = newKey;
+                        keyTreeDisplayPanel.renderKeyTree(parent.getKeyFilter(), parent.getGroupSymbol());
+                    }
+                } catch (Exception exception) {
+                    ErrorDialog.show(exception.getMessage());
+                }
             }
         });
         return renameButton;
